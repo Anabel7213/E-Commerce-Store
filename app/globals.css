@@ -1,27 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Syncopate&display=swap');
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+html, body, :root {
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #FCFBFC;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.bg {
+  background-color: #FCFBFC
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.bg-img {
+  background-image: url("/bg-img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-cover {
+  background-image: url("/bg-1.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.gallery::-webkit-scrollbar {
+  visibility:hidden;
+}
+
+.custom-font {
+  font-family: Syncopate;
 }
