@@ -7,7 +7,6 @@ import { useParams } from "next/navigation"
 import ImageGallery from "react-image-gallery";
 import { Info, LoaderIcon, ShoppingBagIcon, ShoppingCart } from "lucide-react"
 import Rating from '@mui/material/Rating';
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import Review from "@/components/ui/reviews"
@@ -87,13 +86,6 @@ export default function ProductPage() {
                                 <p className="lg:w-[600px] sm:w-full text-slate-600">{product.description}</p>
                             </div>
                             <span className="font-bold text-xl">${product.price}.00</span>
-                            {/* <div className="flex items-center gap-2 text-slate-600">
-                                <span className="text-black font-bold">Amount:</span>
-                                <form onSubmit={() => {}}>
-                                    <Input className="w-[48px] h-auto bg" placeholder="1" maxLength={product.quantity}/>
-                                </form>
-                                <span>out of {product.quantity} available</span>
-                            </div> */}
                             <Button onClick={hanldeAddToCart} className="w-fit flex gap-2 sm:mb-16 lg:mb-0">Add to Cart <ShoppingCart size={16} /></Button>
                         </div>
                     </div>
