@@ -3,9 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import formatPhoneNumber from "@/lib/formattedPhone";
+import formatPhoneNumber from "@/lib/formatPhone";
 import { useState } from "react";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -42,7 +42,6 @@ export default function ContactsPage() {
 
     return (
         <div className="flex justify-center">
-        <Toaster position="top-center" reverseOrder={false} />
         <div className="md:w-[500px] sm:w-full flex items-center flex-col gap-6 m-8 md:px-16 py-16 sm:px-8 bg rounded-lg shadow-sm border">
             <div className="flex flex-col gap-2 items-center">
             <h1 className="font-bold uppercase">Contact Us</h1>

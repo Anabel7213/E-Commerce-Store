@@ -2,33 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import Textblock from "@/components/ui/textblock";
-import { BlogPosts } from "@/interface/interface";
-import axios from "axios";
+import useFetchPosts from "@/lib/usePosts";
 import { Calendar } from "lucide-react";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
-import { Fragment, useEffect, useState } from "react";
-
-const getPosts = async (): Promise<BlogPosts[]> => {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/blog`)
-    return response.data
-  }
+import { useRouter } from "next/navigation";
+import { Fragment } from "react";
 
 export default function BlogPage() {
   const router = useRouter()
-  const [ posts, setPosts ] = useState<BlogPosts[]>([]);
-  useEffect(() => {
-      const fetchProducts = async () => {
-        try {
-          const data = await getPosts();
-          setPosts(data);
-        } catch (err) {
-          console.error("Error fetching posts:", err);
-        }
-      };
-    
-      fetchProducts();
-    }, []);
+  const posts = useFetchPosts()
     const formatDate = (value: string) => {
         const date = new Date(value)
         return date.toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})

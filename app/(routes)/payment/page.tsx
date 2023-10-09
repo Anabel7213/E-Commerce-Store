@@ -1,12 +1,10 @@
 import Textblock from "@/components/ui/textblock";
-import Image from "next/image";
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
   } from "@/components/ui/accordion"
-import { Checkbox } from "@/components/ui/checkbox";
 
 export default function PaymentPage() {
     const returnCriteria = ["The item must be returned within 14 days of the purchase date.", "The item is unused, uninstalled, and not disassembled.", "All parts, hardware, and instructions are included and not missing.", "The item is in its original packaging."]
@@ -27,7 +25,7 @@ export default function PaymentPage() {
                 To ensure that your return is accepted and processed quickly, please make sure that your return meets the following criteria:
                 <div className="flex flex-col gap-2 mt-4 mx-4">
                     {returnCriteria.map((criterium, index) => (
-                        <span className="flex items-center gap-2" key={index}><Checkbox />{criterium}</span>
+                        <span className="flex items-center gap-2" key={index}><li>{criterium}</li></span>
                     ))}
                 </div>
                 </AccordionContent>
@@ -43,5 +41,3 @@ export default function PaymentPage() {
         </div>
     )
 }
-
-{/* <Image src="/photo-01.png" width={500} height={250} alt="Product packaging" className="md:w-[500px] sm:w-full md:mt-0 sm:mt-8 sm:mb-4 md:mb-0"/> */}

@@ -4,18 +4,10 @@ import Landing from "@/components/landing"
 import { Button } from "@/components/ui/button"
 import Textblock from "@/components/ui/textblock"
 import { useState, useEffect } from "react"
-import { Products } from "@/interface/interface"
 import { Categories } from "@/interface/interface"
-import Image from "next/image"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
-import { Info, ShoppingBagIcon } from "lucide-react"
 import axios from "axios"
-import { useRouter } from "next/navigation"
-
-const getProducts = async (): Promise<Products[]> => {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products`)
-  return response.data
-}
+import ProductGrid from "@/components/ui/products"
+import useFetchProducts from "@/lib/useProducts"
 
 const getCategories = async (): Promise<Categories[]> => {
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
@@ -23,7 +15,7 @@ const getCategories = async (): Promise<Categories[]> => {
 }
 
 export default function Homepage() {
-  const router = useRouter()
+  const products = useFetchProducts()
   const [ categories, setCategories ] = useState<Categories[]>([])
   useEffect(() => {
     const fetchCategories = async () => {
@@ -36,20 +28,6 @@ export default function Homepage() {
     }
     fetchCategories()
   }, [])
-
-  const [ products, setProducts ] = useState<Products[]>([]);
-  useEffect(() => {
-      const fetchProducts = async () => {
-        try {
-          const data = await getProducts();
-          setProducts(data);
-        } catch (err) {
-          console.error("Error fetching products:", err);
-        }
-      }; 
-    
-      fetchProducts();
-    }, []);
 
     const [ isActive, setIsActive ] = useState(null)
     const handleButtonClick = (category:any) => {
@@ -94,28 +72,8 @@ export default function Homepage() {
             ))}
         </div>
         <div className="flex gap-4 flex-wrap sm:m-4 lg:mx-16 lg:mt-4 lg:mb-16 justify-start">
-          {products.filter(handleFiltering).map((product:any) => (
-              <div key={product.id} className="border flex items-start rounded-lg flex-col p-6 gap-2 lg:w-[248px] sm:w-full">
-                <Image src={product.images[0].url} width={236} height={200} alt="Product Image" className="lg:w-[236px] lg:h-[200px] sm:w-full object-contain"/>
-                <div className="flex flex-col gap-4 items-start w-full">
-                  <h1 className="text-sm uppercase sm:h-fit lg:h-[42px] custom-font">{product.name}</h1>
-                  <span className="font-bold text-xl">${product.price}.00</span>
-                  <div className="flex gap-4 justify-between w-full">
-                    <HoverCard>
-                    <HoverCardTrigger><Button variant="outline" className="bg"><Info size={16} /></Button></HoverCardTrigger>
-                    <HoverCardContent className="bg">
-                    <div className="flex flex-col">
-                          <span className="text-sm capitalize">Size: {product.size ? product.size : "Not specified"}</span>
-                          <span className="text-sm capitalize">Material: {product.material ? product.material : "Not specified"}</span>
-                    </div>
-                    </HoverCardContent>
-                    </HoverCard>
-                    <Button onClick={() => router.push(`/products/${product.id}`)} className="flex gap-2 items-center w-full">Purchase<ShoppingBagIcon size={16} /></Button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <ProductGrid filterBy={products.filter(handleFiltering)} sortBy={products} ifNotFound="No products to display yet!"/>
+        </div>
         </>
     )
 }

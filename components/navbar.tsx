@@ -4,13 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Menu, Search, ShoppingCart, User } from "lucide-react";
+import { Menu, Search, ShoppingCart } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useEffect, useState } from "react";
 import { Products } from "@/interface/interface";
 import axios from "axios";
-import { UserButton } from "@clerk/nextjs";
-import { useUser } from "@clerk/nextjs";
 import useCart from "@/lib/useCart";
 
 import {
@@ -21,7 +19,7 @@ import {
     SheetTitle,
     SheetTrigger,
   } from "@/components/ui/sheet"
-import Cart from "@/components/ui/cart";
+import Cart from "@/components/modals/cart";
 import Summary from "@/components/ui/summary";
 
 const getProducts = async (): Promise<Products[]> => {
@@ -31,7 +29,6 @@ const getProducts = async (): Promise<Products[]> => {
 
 export default function Navbar() {
     const cart = useCart()
-    const { isSignedIn, user } = useUser()
     const router = useRouter()
     const pathname = usePathname()
     const routes = [
@@ -87,7 +84,7 @@ export default function Navbar() {
       }
     return (
         <div>
-            <div className="lg:hidden sm:flex gap-4 py-4 px-8 justify-between border-b">
+            <div className="lg:hidden sm:flex gap-4 py-4 px-4 justify-between border-b">
                 <Link href="/" className="flex items-center"><Image src="/logo2.svg" width={32} height={32} alt="Company logo." /></Link>
                 <div className="flex flex-col">
                     <div className="border p-1 pl-4 rounded-md flex items-center justify-between shadow-sm md:w-[364px] sm:w-full sm:ml-0">
@@ -106,6 +103,22 @@ export default function Navbar() {
                         <div className="cursor-pointer p-2 rounded-md border bg-slate-100 hover:bg-slate-200"><Search size={12} onClick={() => handleSearch(searchScope.find((item) => item.name === selectedItem)?.id)}/></div>
                     </div>
                 </div>
+                <div className="flex gap-2">
+                <Sheet>
+                    <SheetTrigger><div className="hover:bg-slate-100 cursor-pointer p-2 rounded-md flex relative"><ShoppingCart size={20} /><div className="w-[16px] h-[16px] absolute rounded-[100px] top-5 left-5 bg-black text-[8px] text-slate-100 items-center justify-center flex">{cart.items.length}</div></div></SheetTrigger>
+                    <SheetContent>
+                        <SheetHeader>
+                        <SheetTitle>Shopping Cart</SheetTitle>
+                        <SheetDescription>
+                            <div>
+                                <p>Review your products, and proceed to the secure checkout by clicking the button below.</p>
+                                <Cart />
+                                <Summary />
+                            </div>
+                        </SheetDescription>
+                    </SheetHeader>
+                    </SheetContent>
+                </Sheet>
                 <nav className="flex items-center space-x-4 lg:space-x-6">
                 <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-end"><Button variant="outline"><Menu size={16} /></Button></DropdownMenuTrigger>
@@ -124,6 +137,7 @@ export default function Navbar() {
                 </DropdownMenuContent>
                 </DropdownMenu>
                 </nav>
+                </div>
             </div>
 
             <div className="px-8 py-4 border-b shadow-sm flex justify-between sm:hidden lg:flex">
@@ -153,26 +167,18 @@ export default function Navbar() {
                         </DropdownMenu>
                         <div className="cursor-pointer p-2 rounded-md border bg-slate-100 hover:bg-slate-200"><Search size={12} onClick={() => handleSearch(searchScope.find((item) => item.name === selectedItem)?.id)}/></div>
                     </div>
-                    <div className={isSignedIn ? "md:flex sm:hidden items-center gap-2" : "md:flex sm:hidden items-center"}>
-                        {isSignedIn ? <UserButton afterSignOutUrl="/"/> : <div className="hover:bg-slate-100 cursor-pointer p-2 rounded-md"><User onClick={() => router.push("/user")} size={20} /></div> }
+                    <div className="md:flex sm:hidden items-center">
                         <Sheet>
                         <SheetTrigger><div className="hover:bg-slate-100 cursor-pointer p-2 rounded-md flex relative"><ShoppingCart size={20} /><div className="w-[16px] h-[16px] absolute rounded-[100px] top-5 left-5 bg-black text-[8px] text-slate-100 items-center justify-center flex">{cart.items.length}</div></div></SheetTrigger>
                         <SheetContent>
                             <SheetHeader>
-                            <SheetTitle>{user ? `Hello, ${user?.firstName}!` : "No items"}</SheetTitle>
+                            <SheetTitle>Shopping Cart</SheetTitle>
                             <SheetDescription>
-                                {user ? (
                                     <div>
-                                        <p>This is your shopping cart. Proceed to the secure checkout by clicking the button below.</p>
+                                        <p>Review your products, and proceed to the secure checkout by clicking the button below.</p>
                                         <Cart />
                                         <Summary />
                                     </div>
-                                    ) : (
-                                    <div>
-                                        <p>Please sign in to see your shopping cart and complete the checkout.</p>
-                                        <Button variant="outline" className="mt-4 w-full" onClick={() => router.push("/user")}>Sign in</Button>
-                                    </div>
-                                )}
                             </SheetDescription>
                             </SheetHeader>
                         </SheetContent>

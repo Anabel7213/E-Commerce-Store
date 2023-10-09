@@ -1,7 +1,7 @@
 "useClient"
 
 import { Rating } from "@mui/material";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation"
@@ -17,9 +17,9 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
-import { Input } from "./input";
-import { Textarea } from "./textarea";
-import { Separator } from "./separator";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { Separator } from "../ui/separator";
 import axios from "axios";
 import { Products } from "@/interface/interface";
 import toast, { Toaster } from "react-hot-toast";
