@@ -20,7 +20,7 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 import Cart from "@/components/modals/cart";
-import Summary from "@/components/ui/summary";
+import Summary, { Subsummary } from "@/components/ui/summary";
 
 const getProducts = async (): Promise<Products[]> => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products`)
@@ -58,6 +58,7 @@ export default function Navbar() {
             active: pathname === "/blog"
         },
     ]
+    const [ isProceed, setIsProceed ] = useState(false)
     const [ products, setProducts ] = useState<Products[]>([]);
     useEffect(() => {
         const fetchProducts = async () => {
@@ -110,12 +111,19 @@ export default function Navbar() {
                         <SheetHeader>
                         <SheetTitle>Shopping Cart</SheetTitle>
                         <SheetDescription>
-                            <div>
-                                <p>Review your products, and proceed to the secure checkout by clicking the button below.</p>
-                                <Cart />
-                                <Summary />
-                            </div>
-                        </SheetDescription>
+                                {isProceed ? (
+                                    <div>
+                                    <p>Please select convenient shipping method. You will be redirected to Stripe to finalize checkout.</p>
+                                    <Summary onProceed={() => setIsProceed(yes => !yes)}/>
+                                    </div>
+                                ) : (
+                                    <div>
+                                    <p>Review your products, and proceed to the secure checkout by clicking the button below.</p>
+                                    <Cart />
+                                    <Subsummary onProceed={() => setIsProceed(yes => !yes)}/>
+                                    </div>
+                                )}
+                            </SheetDescription>
                     </SheetHeader>
                     </SheetContent>
                 </Sheet>
@@ -139,10 +147,10 @@ export default function Navbar() {
                 </nav>
                 </div>
             </div>
-
+                    
             <div className="px-8 py-4 border-b shadow-sm flex justify-between sm:hidden lg:flex">
                     <div className="gap-8 items-center flex text-sm font-medium text-slate-500">
-                        <Link href="/" className="flex items-center"><Image src="/Logo.svg" width={124} height={24} alt="Company logo." /></Link>
+                        <Link href="/" className="flex items-center"><Image src="/Logo.svg" width={200} height={40} alt="Company logo. //german autodoc" /></Link>
                         <div className="flex gap-4">
                             {routes.map((route) => (
                                 <Link key={route.href} href={route.href} className="hover:text-slate-800">
@@ -174,11 +182,18 @@ export default function Navbar() {
                             <SheetHeader>
                             <SheetTitle>Shopping Cart</SheetTitle>
                             <SheetDescription>
+                                {isProceed ? (
                                     <div>
-                                        <p>Review your products, and proceed to the secure checkout by clicking the button below.</p>
-                                        <Cart />
-                                        <Summary />
+                                    <p>Please select convenient shipping method. You will be redirected to Stripe to finalize checkout.</p>
+                                    <Summary onProceed={() => setIsProceed(yes => !yes)}/>
                                     </div>
+                                ) : (
+                                    <div>
+                                    <p>Review your products, and proceed to the secure checkout by clicking the button below.</p>
+                                    <Cart />
+                                    <Subsummary onProceed={() => setIsProceed(yes => !yes)}/>
+                                    </div>
+                                )}
                             </SheetDescription>
                             </SheetHeader>
                         </SheetContent>

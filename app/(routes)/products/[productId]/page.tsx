@@ -53,7 +53,7 @@ export default function ProductPage() {
                         </div>
                     </div>
                 </div>
-                <ProductDetails brand={product.brand} size={product.size} material={product.material} compatibility={product.compatibility} width={product.width} height={product.height} weight={product.width} condition={product.condition} color={product.color} isShipping={product.isShipping} shippingCost={product.shippingCost}/>
+                <ProductDetails brand={product.brand} size={product.size} material={product.material} compatibility={product.compatibility} width={product.width} height={product.height} weight={product.width} condition={product.condition} color={product.color} isShipping={product.isShipping} />
                 <div className="lg:m-16 sm:m-4">
                     <Review />
                 </div>

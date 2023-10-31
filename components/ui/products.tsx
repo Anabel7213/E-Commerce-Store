@@ -31,7 +31,7 @@ export default function ProductGrid({separator, containerStyle, title, titleStyl
                         </div>
                         </HoverCardContent>
                         </HoverCard>
-                        <Button onClick={() => router.push(`/products/${product.id}`)} className="flex gap-2 items-center w-full">Purchase<ShoppingBagIcon size={16} /></Button>
+                        <Button onClick={() => router.push(`/products/${product.id}`)} className="flex gap-2 items-center w-full">View Product</Button>
                       </div>
                     </div>
                   </div>

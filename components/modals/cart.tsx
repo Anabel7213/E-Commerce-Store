@@ -17,6 +17,7 @@ export default function Cart() {
     if (!isMounted) {
         return null
     }
+
     return (
         <div className="flex flex-col gap-4 overflow-y-scroll max-h-[290px] my-6">
             {cart.items.length === 0 ? 

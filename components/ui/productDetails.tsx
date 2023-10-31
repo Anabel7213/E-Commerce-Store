@@ -1,7 +1,7 @@
 import { Products } from "@/interface/interface";
 import { Separator } from "./separator";
 
-export default function ProductDetails({ brand, size, material, compatibility, width, height, weight, condition, color, isShipping, shippingCost }: Products | any) {
+export default function ProductDetails({ brand, size, material, compatibility, width, height, weight, condition, color, isShipping }: Products | any) {
     const items = [
         {
             name: "Brand",
@@ -50,7 +50,6 @@ export default function ProductDetails({ brand, size, material, compatibility, w
             </div>
             <div className="flex lg:border sm:border-0 sm:w-full lg:w-fit lg:flex-col sm:flex-col-reverse lg:gap-4 sm:gap-2 lg:p-4 sm:p-0 rounded-md h-fit">
                 {color ? <div className="font-bold flex items-center gap-3 lg:justify-between sm:justify-start">Color: <div className="border rounded-[100px] w-[32px] h-[32px]" style={{ backgroundColor: color }}></div></div> : null}
-                {isShipping ? <div className="font-bold">Shipping Cost: <span className="font-normal text-slate-600">{shippingCost === "" || shippingCost === "0" ? "Free" : shippingCost + ".00"}</span></div> : null}
             </div>
         </div>
         </div>
