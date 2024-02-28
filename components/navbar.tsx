@@ -150,7 +150,7 @@ export default function Navbar() {
                     
             <div className="px-8 py-4 border-b shadow-sm flex justify-between sm:hidden lg:flex">
                     <div className="gap-8 items-center flex text-sm font-medium text-slate-500">
-                        <Link href="/" className="flex items-center"><Image src="/Logo.svg" width={200} height={40} alt="Company logo. //german autodoc" /></Link>
+                        <Link href="/" className="flex items-center"><Image src="/LogoAutodoc.svg" width={150} height={40} alt="Company logo. //german autodoc" /></Link>
                         <div className="flex gap-4">
                             {routes.map((route) => (
                                 <Link key={route.href} href={route.href} className="hover:text-slate-800">

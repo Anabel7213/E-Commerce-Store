@@ -1,7 +1,0 @@
-1. add sales tax based on state +
-2. change logo + company name +
-3. add photos of the promaster +
-4. tweak shipping cost +
-5. add multiple step checkout process +
-5. add shipping options +
-6. make shipping option display in admin orders 
