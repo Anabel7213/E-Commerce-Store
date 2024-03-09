@@ -59,7 +59,6 @@ export default function Footer() {
     return (
         <>
         <Toaster position="top-center" />
-        {/* <button onClick={() => console.log(test)}>test</button> */}
         <div className="border-t mt-8 sm:mx-4 lg:mx-8">
             <div className="gap-2 border rounded-md mt-8 py-16 px-8 flex flex-col items-center">
                 <h1 className="text-xl font-bold">Join the newsletter!</h1>

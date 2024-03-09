@@ -287,7 +287,6 @@ export default function Summary({ onProceed }: any) {
         </Select>
         <div className="text-slate-900 p-6 bg-slate-50 rounded-md">
           <h1 className="font-bold mb-4 text-xl">Order Summary</h1>
-          <button onClick={() => console.log(taxByState)}>test</button>
           <Separator />
           <div className="flex flex-col font-bold gap-2 my-4">
             <span className="flex items-center gap-2 justify-between">
